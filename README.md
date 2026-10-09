@@ -9,5 +9,6 @@ Data: 09/10/2026
 3. Mudanças na pintura do site !
 4. Agora tem umas explicações, de como funciona o site !
 5. tem um movimento mais suave.
+6. No inicio eu tirei, a cor de fundo.
 
 # Fim

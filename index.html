@@ -16,7 +16,7 @@
         --fundo: #f6f2fc;
         --texto: #231a33;
         --texto-suave: #6b6280;
-        --borda: #e7def5;
+        --borda: #fff;
         --sombra: 0 10px 30px rgba(110, 30, 190, 0.12);
       }
       * {
@@ -26,7 +26,12 @@
       }
       body {
         font-family:
-          "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial,
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          Roboto,
+          Helvetica,
+          Arial,
           sans-serif;
         color: var(--texto);
         min-height: 100vh;
@@ -58,7 +63,7 @@
         flex-wrap: wrap;
         gap: 10px;
         padding: 14px 32px;
-        background: rgba(255, 255, 255, 0.85);
+        background:transparent;
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--borda);
@@ -67,7 +72,11 @@
         font-size: 1.5rem;
         font-weight: 800;
         letter-spacing: -0.5px;
-        background: linear-gradient(90deg, var(--roxo-claro), var(--roxo-escuro));
+        background: linear-gradient(
+          90deg,
+          var(--roxo-claro),
+          var(--roxo-escuro)
+        );
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -305,7 +314,11 @@
         justify-content: center;
         font-size: 1.9rem;
         color: #fff;
-        background: linear-gradient(135deg, var(--roxo-claro), var(--roxo-escuro));
+        background: linear-gradient(
+          135deg,
+          var(--roxo-claro),
+          var(--roxo-escuro)
+        );
         box-shadow: 0 10px 22px rgba(177, 10, 243, 0.35);
       }
       .cartao h2 {
@@ -376,7 +389,11 @@
         grid-template-columns: auto 1fr auto;
         align-items: center;
         gap: 6px 20px;
-        background: linear-gradient(135deg, var(--roxo-claro), var(--roxo-escuro));
+        background: linear-gradient(
+          135deg,
+          var(--roxo-claro),
+          var(--roxo-escuro)
+        );
         color: #fff;
         padding: 26px;
         border-radius: 24px;
@@ -555,7 +572,11 @@
       footer {
         text-align: center;
         padding: 18px;
-        background: linear-gradient(90deg, var(--roxo-escuro), var(--roxo-claro));
+        background: linear-gradient(
+          90deg,
+          var(--roxo-escuro),
+          var(--roxo-claro)
+        );
         color: rgba(255, 255, 255, 0.92);
         font-size: 0.9rem;
         width: 100%;
