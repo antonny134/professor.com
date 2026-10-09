@@ -9,224 +9,68 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
     />
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: Arial, Helvetica, sans-serif;
-        background-color: #f5f5f5;
-        padding-bottom: 70px;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: Arial, Helvetica, sans-serif; background-color: #f5f5f5; padding-bottom: 70px; }
+      .inicio { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; padding: 20px; border-bottom: 1px solid #b10af3; width: 100%; background-color: #fff; }
+      .menu ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+      .menu ul li a { text-decoration: none; color: #000; display: flex; align-items: center; gap: 5px; transition: 0.4s; }
+      .menu ul li a:hover { color: #b10af3; transition: 0.3s; }
+      .menu ul li a i { font-size: 1.2rem; }
+      .inicio h3 { color: #b10af3; font-size: 1.5rem; }
+      .user { display: none; padding: 20px; gap: 20px; flex-direction: column; }
+      .user-profile { width: 100%; background-color: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 1px 1px #b10af3; }
+      .user-content { width: 100%; background-color: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 4px #b10af3; cursor: default; }
+      .user-content h3 { color: #b10af3; margin-bottom: 10px; text-align: center; }
+      .user-content p { color: #333; text-align: center; }
+      .user-profile h3 { color: #333; }
+      .user-content button#btn-arquivos { display: flex; margin: auto; padding: 10px; border-radius: 20px; border: 1px solid #9a0ad1; background: transparent; color: #b10af3; cursor: pointer; transition: all 0.5s; }
+      .user-content button#btn-arquivos:hover { background: #b10af3; color: white; transition: all 0.4s; }
+      .user-profile button { background-color: #b10af3; color: #fff; border: none; padding: 10px 20px; cursor: pointer; max-width: 160px; border-radius: 4px; margin-top: 10px; width: 100%; transition: 0.4s; }
+      .user-profile button:hover { background-color: #9a0ad1; transition: 0.3s; }
 
-      .inicio {
-        align-items: center;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: space-between;
-        padding: 20px;
-        border-bottom: 1px solid #b10af3;
-        width: 100%;
-        background-color: #fff;
-      }
-      .menu ul {
-        list-style: none;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .menu ul li a {
-        text-decoration: none;
-        color: #000;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        transition: 0.4s;
-      }
-      .menu ul li a:hover {
-        color: #b10af3;
-        transition: 0.3s;
-      }
-      .menu ul li a i {
-        font-size: 1.2rem;
-      }
+      /* Lista de arquivos */
+      #lista-arquivos { list-style: none; margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+      #lista-arquivos .vazio { color: #888; text-align: center; font-size: 0.9rem; }
+      .arquivo { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid #eee; border-radius: 6px; background: #fafafa; flex-wrap: wrap; }
+      .arquivo > i { font-size: 1.8rem; }
+      .arquivo .bi-file-earmark-pdf-fill { color: #d32f2f; }
+      .arquivo .bi-file-earmark-word-fill { color: #1976d2; }
+      .arquivo-info { flex: 1; min-width: 140px; overflow: hidden; }
+      .arquivo-nome { color: #333; font-size: 0.95rem; word-break: break-word; }
+      .arquivo-tam { color: #888; font-size: 0.8rem; }
+      .arquivo-acoes { display: flex; gap: 6px; }
+      .arquivo-acoes button { background: transparent; border: 1px solid #b10af3; color: #b10af3; border-radius: 4px; padding: 6px 8px; cursor: pointer; font-size: 1rem; transition: 0.3s; }
+      .arquivo-acoes button:hover { background: #b10af3; color: #fff; }
+      .arquivo-acoes button.remover { border-color: #d32f2f; color: #d32f2f; }
+      .arquivo-acoes button.remover:hover { background: #d32f2f; color: #fff; }
 
-      .inicio h3 {
-        color: #b10af3;
-        font-size: 1.5rem;
-      }
-      .user {
-        display: none;
-        padding: 20px;
-        gap: 20px;
-        flex-direction: column;
-      }
-      .user-profile {
-        width: 100%;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 6px;
-        box-shadow: 0 1px 1px #b10af3;
-      }
-      .user-content {
-        width: 100%;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 6px;
-        box-shadow: 0 2px 4px #b10af3;
-        cursor: default;
-      }
-      .user-content h3 {
-        color: #b10af3;
-        margin-bottom: 10px;
-        text-align: center;
-      }
-      .user-content p {
-        color: #333;
-        text-align: center;
-      }
-      .user-profile h3 {
-        color: #333;
-      }
-      .user-profile button {
-        background-color: #b10af3;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        max-width: 160px;
-        border-radius: 4px;
-        margin-top: 10px;
-        width: 100%;
-        transition: 0.4s;
-      }
-      .user-profile button:hover {
-        background-color: #9a0ad1;
-        transition: 0.3s;
-      }
-      .home {
-        display: none;
-        justify-content: center;
-        align-items: center;
-        min-height: calc(100vh - 140px);
-        padding: 20px;
-        text-align: center;
-      }
-      .home-content h1 {
-        font-size: 2.5rem;
-        color: #b10af3;
-      }
-      .home-content p {
-        font-size: 1.2rem;
-        color: #333;
-        margin-top: 10px;
-      }
-      .home-content {
-        max-width: 600px;
-      }
+      .home { display: none; justify-content: center; align-items: center; min-height: calc(100vh - 140px); padding: 20px; text-align: center; }
+      .home-content h1 { font-size: 2.5rem; color: #b10af3; }
+      .home-content p { font-size: 1.2rem; color: #333; margin-top: 10px; }
+      .home-content { max-width: 600px; }
 
       /* Cadastro e Login */
-      .cadastro,
-      .login {
-        padding: 20px;
-        text-align: center;
-        display: none;
-        flex-direction: column;
-        justify-content: center;
-        min-height: calc(100vh - 140px);
-      }
-      .cadastro input,
-      .login input {
-        display: block;
-        margin: 10px auto;
-        padding: 10px;
-        width: 100%;
-        max-width: 360px;
-        outline: none;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-      .cadastro input:focus,
-      .login input:focus {
-        border-color: #b10af3;
-      }
-      .cadastro h2,
-      .login h2 {
-        color: #b10af3;
-        margin-bottom: 20px;
-        font-size: 2rem;
-      }
-      .cadastro button,
-      .login button {
-        background-color: #b10af3;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        max-width: 360px;
-        width: 100%;
-        border-radius: 4px;
-        transition: 0.4s;
-      }
-      .cadastro button:hover,
-      .login button:hover {
-        background-color: #9a0ad1;
-        transition: 0.3s;
-      }
+      .cadastro, .login { padding: 20px; text-align: center; display: none; flex-direction: column; justify-content: center; min-height: calc(100vh - 140px); }
+      .cadastro input, .login input { display: block; margin: 10px auto; padding: 10px; width: 100%; max-width: 360px; outline: none; border: 1px solid #ccc; border-radius: 4px; }
+      .cadastro input:focus, .login input:focus { border-color: #b10af3; }
+      .cadastro h2, .login h2 { color: #b10af3; margin-bottom: 20px; font-size: 2rem; }
+      .cadastro button, .login button { background-color: #b10af3; color: #fff; border: none; padding: 10px 20px; cursor: pointer; max-width: 360px; width: 100%; border-radius: 4px; transition: 0.4s; }
+      .cadastro button:hover, .login button:hover { background-color: #9a0ad1; transition: 0.3s; }
 
       /* Rodapé */
-      footer {
-        text-align: center;
-        padding: 20px;
-        background-color: #b10af3;
-        color: #fff;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-      }
+      footer { text-align: center; padding: 20px; background-color: #b10af3; color: #fff; position: fixed; bottom: 0; width: 100%; }
 
       /* Aviso */
-      #aviso {
-        background-color: #b10af3;
-        color: #fff;
-        position: fixed;
-        top: 80px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000;
-        padding: 12px 20px;
-        max-width: 360px;
-        width: calc(100% - 40px);
-        border: 1px solid #b10af3;
-        border-radius: 6px;
-        text-align: center;
-        display: none;
-      }
+      #aviso { background-color: #b10af3; color: #fff; position: fixed; top: 80px; left: 50%; transform: translateX(-50%); z-index: 1000; padding: 12px 20px; max-width: 360px; width: calc(100% - 40px); border: 1px solid #b10af3; border-radius: 6px; text-align: center; display: none; }
 
-      @media (max-width:450px) {
-        .inicio{
-            display: flex;
-            flex-direction: column;
-        }
-        .menu{
-            display: flex;
-            justify-content: center;
-        }
+      @media (max-width: 450px) {
+        .inicio { display: flex; flex-direction: column; }
+        .menu { display: flex; justify-content: center; }
       }
-      @media (max-width:650px){
-         .inicio{
-            display: flex;
-            flex-direction: column;
-        }
-        .menu{
-            display: flex;
-            justify-content: center;
-        }
-        .menu ul{
-            gap: 11px;
-        }
+      @media (max-width: 650px) {
+        .inicio { display: flex; flex-direction: column; }
+        .menu { display: flex; justify-content: center; }
+        .menu ul { gap: 11px; }
       }
     </style>
   </head>
@@ -235,30 +79,10 @@
       <h3>Professor.com</h3>
       <nav class="menu">
         <ul>
-          <li>
-            <a href="#" data-page="home">
-              <i class="bi bi-house-door-fill"></i>
-              <span>Home</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" id="cadastro" data-page="cadastro">
-              <i class="bi bi-person-circle"></i>
-              <span>Cadastro</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" id="login" data-page="login">
-              <i class="bi bi-box-arrow-in-right"></i>
-              <span>Login</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" id="perfil" data-page="perfil">
-              <i class="bi bi-person"></i>
-              <span>Perfil</span>
-            </a>
-          </li>
+          <li><a href="#" data-page="home"><i class="bi bi-house-door-fill"></i><span>Home</span></a></li>
+          <li><a href="#" id="cadastro" data-page="cadastro"><i class="bi bi-person-circle"></i><span>Cadastro</span></a></li>
+          <li><a href="#" id="login" data-page="login"><i class="bi bi-box-arrow-in-right"></i><span>Login</span></a></li>
+          <li><a href="#" id="perfil" data-page="perfil"><i class="bi bi-person"></i><span>Perfil</span></a></li>
         </ul>
       </nav>
     </header>
@@ -267,10 +91,7 @@
     <section class="home">
       <div class="home-content">
         <h1>Bem-vindo ao Professor.com</h1>
-        <p>
-          Aqui você pode encontrar recursos educacionais, tutoriais e muito mais
-          para aprimorar seu conhecimento.
-        </p>
+        <p>Aqui você pode encontrar recursos educacionais, tutoriais e muito mais para aprimorar seu conhecimento.</p>
       </div>
     </section>
 
@@ -278,35 +99,10 @@
     <section class="cadastro">
       <h2>Cadastro</h2>
       <form>
-        <input
-          type="text"
-          placeholder="Nome"
-          id="nome"
-          autocomplete="name"
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          id="email-cadastro"
-          autocomplete="email"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Senha (mínimo 6 caracteres)"
-          id="senha-cadastro"
-          autocomplete="new-password"
-          minlength="6"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Confirmar Senha"
-          id="confirmar-senha"
-          autocomplete="new-password"
-          required
-        />
+        <input type="text" placeholder="Nome" id="nome" autocomplete="name" required />
+        <input type="email" placeholder="Email" id="email-cadastro" autocomplete="email" required />
+        <input type="password" placeholder="Senha (mínimo 6 caracteres)" id="senha-cadastro" autocomplete="new-password" minlength="6" required />
+        <input type="password" placeholder="Confirmar Senha" id="confirmar-senha" autocomplete="new-password" required />
         <button type="submit">Cadastrar</button>
       </form>
     </section>
@@ -315,20 +111,8 @@
     <section class="login">
       <h2>Login</h2>
       <form>
-        <input
-          type="email"
-          placeholder="Email"
-          id="email"
-          autocomplete="email"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          id="senha"
-          autocomplete="current-password"
-          required
-        />
+        <input type="email" placeholder="Email" id="email" autocomplete="email" required />
+        <input type="password" placeholder="Senha" id="senha" autocomplete="current-password" required />
         <button type="submit">Entrar</button>
       </form>
     </section>
@@ -343,11 +127,24 @@
       </div>
       <div class="user-content">
         <h3>Conteúdo do Usuário</h3>
-        <p>Aqui você pode acessar seus cursos, materiais e recursos.</p>
+        <p>Aqui você pode acessar seus Arquivos e materiais Escolares.</p>
+        <br />
+        <button id="btn-arquivos" type="button">
+          <i class="bi bi-upload" style="margin-right:6px"></i>Transferir Arquivos
+        </button>
+        <input
+          type="file"
+          id="input-arquivos"
+          multiple
+          hidden
+          accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        />
+        <ul id="lista-arquivos"></ul>
       </div>
     </section>
 
     <div id="aviso"></div>
+
     <footer>
       <p>&copy; <span id="ano"></span> Professor.com. Todos os direitos reservados.</p>
     </footer>
@@ -363,9 +160,211 @@
       const loginLink = document.getElementById("login");
       const perfilLink = document.getElementById("perfil");
       const logoutButton = document.getElementById("logout");
+      const btnArquivos = document.getElementById("btn-arquivos");
+      const inputArquivos = document.getElementById("input-arquivos");
+      const listaArquivos = document.getElementById("lista-arquivos");
 
       document.getElementById("ano").textContent = new Date().getFullYear();
 
+      /* ---------- Armazenamento de arquivos (IndexedDB) ---------- */
+      let dbPromise = null;
+      function abrirDB() {
+        if (dbPromise) return dbPromise;
+        dbPromise = new Promise((resolve, reject) => {
+          const req = indexedDB.open("professor-arquivos", 1);
+          req.onupgradeneeded = () => {
+            const db = req.result;
+            const store = db.createObjectStore("arquivos", { keyPath: "id", autoIncrement: true });
+            store.createIndex("dono", "dono", { unique: false });
+          };
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        });
+        return dbPromise;
+      }
+
+      async function dbListar(dono) {
+        const db = await abrirDB();
+        return new Promise((resolve, reject) => {
+          const req = db.transaction("arquivos").objectStore("arquivos").index("dono").getAll(dono);
+          req.onsuccess = () => resolve(req.result);
+          req.onerror = () => reject(req.error);
+        });
+      }
+
+      async function dbAdicionar(registro) {
+        const db = await abrirDB();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction("arquivos", "readwrite");
+          tx.objectStore("arquivos").add(registro);
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
+      }
+
+      async function dbRemover(id) {
+        const db = await abrirDB();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction("arquivos", "readwrite");
+          tx.objectStore("arquivos").delete(id);
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
+      }
+
+      /* ---------- Filtro PDF / Word ---------- */
+      const TIPOS_WORD = [
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      ];
+
+      function tipoDoArquivo(file) {
+        const nome = file.name.toLowerCase();
+        if (file.type === "application/pdf" || nome.endsWith(".pdf")) return "pdf";
+        if (TIPOS_WORD.includes(file.type) || nome.endsWith(".doc") || nome.endsWith(".docx")) return "word";
+        return null;
+      }
+
+      function formatarTamanho(bytes) {
+        if (bytes < 1024) return bytes + " B";
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+        return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+      }
+
+      function baixarArquivo(reg) {
+        const url = URL.createObjectURL(reg.blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = reg.nome;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+
+      function abrirArquivo(reg) {
+        const url = URL.createObjectURL(reg.blob);
+        window.open(url, "_blank");
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      }
+
+      async function renderizarArquivos() {
+        listaArquivos.innerHTML = "";
+        const dono = localStorage.getItem("email");
+        let arquivos = [];
+        try {
+          arquivos = dono ? await dbListar(dono) : [];
+        } catch (err) {
+          mostrarAviso("Não foi possível carregar os arquivos.");
+        }
+
+        if (!arquivos.length) {
+          const li = document.createElement("li");
+          li.className = "vazio";
+          li.textContent = "Nenhum arquivo transferido ainda.";
+          listaArquivos.appendChild(li);
+          return;
+        }
+
+        arquivos.forEach((reg) => {
+          const li = document.createElement("li");
+          li.className = "arquivo";
+
+          const icone = document.createElement("i");
+          icone.className = "bi " + (reg.tipo === "pdf" ? "bi-file-earmark-pdf-fill" : "bi-file-earmark-word-fill");
+
+          const info = document.createElement("div");
+          info.className = "arquivo-info";
+          const nome = document.createElement("div");
+          nome.className = "arquivo-nome";
+          nome.textContent = reg.nome;
+          const tam = document.createElement("div");
+          tam.className = "arquivo-tam";
+          tam.textContent = (reg.tipo === "pdf" ? "PDF" : "Word") + " • " + formatarTamanho(reg.tamanho);
+          info.append(nome, tam);
+
+          const acoes = document.createElement("div");
+          acoes.className = "arquivo-acoes";
+
+          if (reg.tipo === "pdf") {
+            const abrir = document.createElement("button");
+            abrir.type = "button";
+            abrir.title = "Abrir";
+            abrir.innerHTML = '<i class="bi bi-eye"></i>';
+            abrir.addEventListener("click", () => abrirArquivo(reg));
+            acoes.appendChild(abrir);
+          }
+
+          const baixar = document.createElement("button");
+          baixar.type = "button";
+          baixar.title = "Baixar";
+          baixar.innerHTML = '<i class="bi bi-download"></i>';
+          baixar.addEventListener("click", () => baixarArquivo(reg));
+
+          const remover = document.createElement("button");
+          remover.type = "button";
+          remover.className = "remover";
+          remover.title = "Remover";
+          remover.innerHTML = '<i class="bi bi-trash"></i>';
+          remover.addEventListener("click", async () => {
+            await dbRemover(reg.id);
+            renderizarArquivos();
+            mostrarAviso("Arquivo removido.");
+          });
+
+          acoes.append(baixar, remover);
+          li.append(icone, info, acoes);
+          listaArquivos.appendChild(li);
+        });
+      }
+
+      btnArquivos.addEventListener("click", () => inputArquivos.click());
+
+      inputArquivos.addEventListener("change", async () => {
+        const selecionados = Array.from(inputArquivos.files);
+        inputArquivos.value = "";
+        if (!selecionados.length) return;
+
+        const dono = localStorage.getItem("email");
+        const validos = selecionados.filter((f) => tipoDoArquivo(f));
+        const ignorados = selecionados.length - validos.length;
+
+        if (!validos.length) {
+          return mostrarAviso("Selecione apenas arquivos PDF ou Word (.doc, .docx).");
+        }
+
+        let existentes = [];
+        try {
+          existentes = await dbListar(dono);
+        } catch (err) {}
+
+        let adicionados = 0;
+        for (const file of validos) {
+          const duplicado = existentes.some((r) => r.nome === file.name && r.tamanho === file.size);
+          if (duplicado) continue;
+          try {
+            await dbAdicionar({
+              dono,
+              nome: file.name,
+              tipo: tipoDoArquivo(file),
+              tamanho: file.size,
+              blob: file,
+              data: Date.now(),
+            });
+            adicionados++;
+          } catch (err) {
+            mostrarAviso("Erro ao salvar " + file.name);
+          }
+        }
+
+        await renderizarArquivos();
+
+        let msg = adicionados + " arquivo(s) transferido(s).";
+        if (ignorados) msg += " " + ignorados + " ignorado(s) (só PDF e Word).";
+        mostrarAviso(msg);
+      });
+
+      /* ---------- Navegação / sessão ---------- */
       function esconderTodasAsSections() {
         homeSection.style.display = "none";
         cadastroSection.style.display = "none";
@@ -374,10 +373,7 @@
       }
 
       function estaLogado() {
-        return (
-          localStorage.getItem("logado") === "true" &&
-          !!localStorage.getItem("email")
-        );
+        return localStorage.getItem("logado") === "true" && !!localStorage.getItem("email");
       }
 
       function atualizarMenu() {
@@ -388,13 +384,12 @@
       }
 
       function mostrarPerfil() {
-        document.getElementById("nome-user").textContent =
-          localStorage.getItem("nome");
-        document.getElementById("email-user").textContent =
-          `Email: ${localStorage.getItem("email")}`;
+        document.getElementById("nome-user").textContent = localStorage.getItem("nome");
+        document.getElementById("email-user").textContent = `Email: ${localStorage.getItem("email")}`;
         document.getElementById("perfil-user").textContent = "Perfil: Professor";
         esconderTodasAsSections();
         userSection.style.display = "flex";
+        renderizarArquivos();
       }
 
       function carregarDadosDoPerfil() {
@@ -408,9 +403,7 @@
         link.addEventListener("click", (e) => {
           e.preventDefault();
           const pagina = link.dataset.page;
-
           esconderTodasAsSections();
-
           if (pagina === "home") {
             homeSection.style.display = "flex";
           } else if (pagina === "cadastro") {
@@ -435,10 +428,7 @@
       cadastroForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const nome = document.getElementById("nome").value.trim();
-        const email = document
-          .getElementById("email-cadastro")
-          .value.trim()
-          .toLowerCase();
+        const email = document.getElementById("email-cadastro").value.trim().toLowerCase();
         const senha = document.getElementById("senha-cadastro").value;
         const confirmarSenha = document.getElementById("confirmar-senha").value;
 
