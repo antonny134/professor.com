@@ -11,4 +11,7 @@ Data: 09/10/2026
 5. tem um movimento mais suave.
 6. No inicio eu tirei, a cor de fundo.
 
+Data: 11/10/2026
+1. Criei um modo de compartilhar, o arquivo.
+2. Tem um modo de grupo que dar para compartilhar, arquivo com os colegas de Trabalhor
 # Fim

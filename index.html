@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Professor.com</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
@@ -13,46 +19,82 @@
         --roxo: #8b1fe0;
         --roxo-claro: #b10af3;
         --roxo-escuro: #5b12a8;
-        --fundo: #f6f2fc;
+        --lilas: #f3e8ff;
+        --fundo: #f7f3fd;
         --texto: #231a33;
         --texto-suave: #6b6280;
-        --borda: #fff;
-        --sombra: 0 10px 30px rgba(110, 30, 190, 0.12);
+        --borda: #e9ddf7;
+        --branco: #ffffff;
+        --grad: linear-gradient(135deg, var(--roxo-claro), var(--roxo-escuro));
+        --sombra: 0 10px 30px rgba(110, 30, 190, 0.1);
+        --sombra-forte: 0 20px 44px rgba(110, 30, 190, 0.22);
+        --raio: 22px;
       }
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
+      html {
+        scroll-behavior: smooth;
+      }
       body {
-        font-family:
-          "Segoe UI",
-          system-ui,
-          -apple-system,
-          Roboto,
-          Helvetica,
-          Arial,
-          sans-serif;
+        font-family: "Inter", "Segoe UI", system-ui, sans-serif;
         color: var(--texto);
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        background:
-          radial-gradient(
-            circle at 10% 0%,
-            rgba(177, 10, 243, 0.12),
-            transparent 40%
-          ),
-          radial-gradient(
-            circle at 100% 30%,
-            rgba(91, 18, 168, 0.1),
-            transparent 40%
-          ),
-          var(--fundo);
-        background-attachment: fixed;
+        background: var(--fundo);
+        position: relative;
+        overflow-x: hidden;
+      }
+      /* Fundo decorativo */
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        z-index: -1;
+        border-radius: 50%;
+        filter: blur(80px);
+        pointer-events: none;
+      }
+      body::before {
+        width: 480px;
+        height: 480px;
+        top: -140px;
+        left: -120px;
+        background: rgba(177, 10, 243, 0.22);
+        animation: flutuar 14s ease-in-out infinite;
+      }
+      body::after {
+        width: 520px;
+        height: 520px;
+        bottom: -180px;
+        right: -140px;
+        background: rgba(91, 18, 168, 0.2);
+        animation: flutuar 18s ease-in-out infinite reverse;
+      }
+      @keyframes flutuar {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(40px, 30px);
+        }
+      }
+      @keyframes entrar {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
       }
 
-      /* Cabeçalho */
+      /* ---------- Cabeçalho ---------- */
       .inicio {
         position: sticky;
         top: 0;
@@ -62,45 +104,49 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 10px;
-        padding: 14px 32px;
-        background:transparent;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        padding: 12px 32px;
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
         border-bottom: 1px solid var(--borda);
       }
       .inicio h3 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: 800;
         letter-spacing: -0.5px;
-        background: linear-gradient(
-          90deg,
-          var(--roxo-claro),
-          var(--roxo-escuro)
-        );
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--grad);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-        display: flex;
-        align-items: center;
-        gap: 8px;
       }
       .inicio h3::before {
         content: "\f4d3";
         font-family: "bootstrap-icons";
-        -webkit-text-fill-color: var(--roxo-claro);
-        font-size: 1.6rem;
+        -webkit-text-fill-color: #fff;
+        font-size: 1.15rem;
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--grad);
+        box-shadow: 0 8px 18px rgba(177, 10, 243, 0.35);
       }
       .menu ul {
         list-style: none;
         display: flex;
         flex-wrap: wrap;
-        gap: 6px;
+        gap: 4px;
       }
       .menu ul li a {
         text-decoration: none;
         color: var(--texto);
         font-weight: 600;
-        font-size: 0.95rem;
+        font-size: 0.92rem;
         display: flex;
         align-items: center;
         gap: 7px;
@@ -109,13 +155,16 @@
         transition: all 0.25s;
       }
       .menu ul li a:hover {
+        background: var(--lilas);
+        color: var(--roxo);
+      }
+      .menu ul li a.ativo {
         color: #fff;
-        background: linear-gradient(135deg, var(--roxo-claro), var(--roxo));
-        box-shadow: 0 6px 16px rgba(177, 10, 243, 0.3);
-        transform: translateY(-1px);
+        background: var(--grad);
+        box-shadow: 0 8px 18px rgba(177, 10, 243, 0.32);
       }
       .menu ul li a i {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
       }
 
       main {
@@ -123,29 +172,22 @@
         display: flex;
         flex-direction: column;
       }
+      section {
+        width: 100%;
+      }
 
-      /* Home */
+      /* ---------- Home ---------- */
       .home {
-        display: none;
+        display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 20px;
         text-align: center;
+        padding: 0 20px;
         animation: entrar 0.5s ease;
       }
-      @keyframes entrar {
-        from {
-          opacity: 0;
-          transform: translateY(14px);
-        }
-        to {
-          opacity: 1;
-          transform: none;
-        }
-      }
       .home-content {
-        max-width: 720px;
-        padding: 56px 10px 40px;
+        max-width: 780px;
+        padding: 72px 10px 36px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -153,93 +195,116 @@
       .selo {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        padding: 6px 14px;
+        gap: 8px;
+        padding: 7px 16px;
         border-radius: 999px;
-        background: #fff;
+        background: var(--branco);
         border: 1px solid var(--borda);
         color: var(--roxo);
         font-size: 0.85rem;
         font-weight: 600;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 12px rgba(139, 31, 224, 0.1);
+        margin-bottom: 24px;
+        box-shadow: 0 6px 16px rgba(139, 31, 224, 0.12);
       }
       .home-content h1 {
-        font-size: clamp(2rem, 6vw, 3.4rem);
-        line-height: 1.1;
+        font-size: clamp(2.2rem, 6.5vw, 4rem);
+        line-height: 1.06;
         font-weight: 800;
-        letter-spacing: -1.5px;
-        background: linear-gradient(
-          90deg,
-          var(--roxo-claro),
-          var(--roxo-escuro)
-        );
+        letter-spacing: -2px;
+        color: var(--texto);
+      }
+      .home-content h1 span {
+        background: var(--grad);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
       }
       .home-content p {
-        font-size: 1.15rem;
+        font-size: 1.12rem;
         color: var(--texto-suave);
-        margin-top: 18px;
-        line-height: 1.6;
-        max-width: 560px;
+        margin-top: 20px;
+        line-height: 1.65;
+        max-width: 580px;
       }
       .home-botoes {
         display: flex;
         gap: 12px;
         flex-wrap: wrap;
         justify-content: center;
-        margin-top: 28px;
+        margin-top: 32px;
       }
       .btn-hero {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 13px 26px;
+        padding: 14px 28px;
         border-radius: 999px;
         font-weight: 700;
         font-size: 1rem;
         cursor: pointer;
-        border: 2px solid var(--roxo-claro);
+        border: 2px solid transparent;
         transition: all 0.25s;
         text-decoration: none;
       }
       .btn-hero.primario {
-        background: linear-gradient(135deg, var(--roxo-claro), var(--roxo));
+        background: var(--grad);
         color: #fff;
-        box-shadow: 0 10px 24px rgba(177, 10, 243, 0.35);
+        box-shadow: 0 12px 26px rgba(177, 10, 243, 0.38);
       }
       .btn-hero.secundario {
-        background: #fff;
+        background: var(--branco);
         color: var(--roxo);
+        border-color: var(--borda);
       }
       .btn-hero:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 14px 28px rgba(177, 10, 243, 0.3);
+        transform: translateY(-3px);
+        box-shadow: var(--sombra-forte);
+      }
+      .estatisticas {
+        display: flex;
+        gap: 36px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 44px;
+        padding-top: 28px;
+        border-top: 1px solid var(--borda);
+        width: 100%;
+      }
+      .estatisticas div strong {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: 800;
+        background: var(--grad);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .estatisticas div span {
+        font-size: 0.85rem;
+        color: var(--texto-suave);
       }
       .home-content2 {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 20px;
+        gap: 22px;
         max-width: 1000px;
         width: 100%;
-        padding: 10px 0 40px;
+        padding: 10px 0 56px;
       }
       .feature-card {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 14px;
+        gap: 16px;
         text-align: left;
-        padding: 28px 24px;
-        border-radius: 22px;
+        padding: 30px 26px;
+        border-radius: 26px;
         color: #fff;
         position: relative;
         overflow: hidden;
         background: linear-gradient(145deg, #b10af3 0%, #6d11c4 100%);
         box-shadow: 0 18px 36px rgba(139, 31, 224, 0.28);
-        transition: transform 0.3s;
+        transition: transform 0.3s, box-shadow 0.3s;
       }
       .feature-card:nth-child(2) {
         background: linear-gradient(145deg, #7a1fe6 0%, #4a11a0 100%);
@@ -247,24 +312,25 @@
       .feature-card::after {
         content: "";
         position: absolute;
-        width: 160px;
-        height: 160px;
+        width: 190px;
+        height: 190px;
         border-radius: 50%;
-        right: -50px;
-        top: -50px;
+        right: -60px;
+        top: -60px;
         background: rgba(255, 255, 255, 0.1);
       }
       .feature-card:hover {
-        transform: translateY(-6px);
+        transform: translateY(-8px);
+        box-shadow: 0 26px 48px rgba(139, 31, 224, 0.38);
       }
       .feature-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 54px;
-        height: 54px;
+        width: 56px;
+        height: 56px;
         background: rgba(255, 255, 255, 0.2);
-        border-radius: 16px;
+        border-radius: 18px;
         font-size: 1.6rem;
         position: relative;
         z-index: 1;
@@ -278,59 +344,64 @@
       .feature-card p {
         color: rgba(255, 255, 255, 0.88);
         line-height: 1.55;
-        font-size: 0.98rem;
+        font-size: 0.97rem;
         position: relative;
         z-index: 1;
       }
 
-      /* Cadastro e Login */
+      /* ---------- Cadastro e Login ---------- */
       .cadastro,
       .login {
         display: none;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 30px 20px;
+        padding: 40px 20px;
         flex: 1;
         animation: entrar 0.5s ease;
       }
       .cartao {
         width: 100%;
-        max-width: 420px;
-        background: #fff;
-        padding: 36px 30px;
-        border-radius: 24px;
+        max-width: 430px;
+        background: var(--branco);
+        padding: 40px 32px;
+        border-radius: 28px;
         border: 1px solid var(--borda);
-        box-shadow: var(--sombra);
+        box-shadow: var(--sombra-forte);
         text-align: center;
+        position: relative;
+      }
+      .cartao::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 5px;
+        border-radius: 28px 28px 0 0;
+        background: var(--grad);
       }
       .cartao .topo-icone {
-        width: 64px;
-        height: 64px;
-        margin: 0 auto 16px;
-        border-radius: 20px;
+        width: 68px;
+        height: 68px;
+        margin: 0 auto 18px;
+        border-radius: 22px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 1.9rem;
         color: #fff;
-        background: linear-gradient(
-          135deg,
-          var(--roxo-claro),
-          var(--roxo-escuro)
-        );
-        box-shadow: 0 10px 22px rgba(177, 10, 243, 0.35);
+        background: var(--grad);
+        box-shadow: 0 12px 24px rgba(177, 10, 243, 0.38);
       }
       .cartao h2 {
         font-size: 1.8rem;
         font-weight: 800;
-        color: var(--texto);
+        letter-spacing: -0.5px;
         margin-bottom: 6px;
       }
       .cartao .sub {
         color: var(--texto-suave);
         font-size: 0.95rem;
-        margin-bottom: 22px;
+        margin-bottom: 20px;
       }
       .cadastro input,
       .login input {
@@ -338,10 +409,11 @@
         width: 100%;
         margin: 12px 0;
         padding: 14px 16px;
-        font-size: 0.98rem;
+        font: inherit;
+        font-size: 0.97rem;
         outline: none;
         border: 1.5px solid var(--borda);
-        border-radius: 12px;
+        border-radius: 14px;
         background: #faf7fe;
         color: var(--texto);
         transition: all 0.25s;
@@ -354,33 +426,33 @@
       }
       .cadastro button,
       .login button {
-        margin-top: 10px;
+        margin-top: 12px;
         width: 100%;
-        padding: 14px 20px;
+        padding: 15px 20px;
         border: none;
-        border-radius: 12px;
+        border-radius: 14px;
         cursor: pointer;
+        font: inherit;
         font-size: 1rem;
         font-weight: 700;
         color: #fff;
-        background: linear-gradient(135deg, var(--roxo-claro), var(--roxo));
-        box-shadow: 0 10px 22px rgba(177, 10, 243, 0.3);
+        background: var(--grad);
+        box-shadow: 0 12px 24px rgba(177, 10, 243, 0.3);
         transition: all 0.25s;
       }
       .cadastro button:hover,
       .login button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 14px 28px rgba(177, 10, 243, 0.4);
+        box-shadow: 0 16px 30px rgba(177, 10, 243, 0.42);
       }
 
-      /* Usuário */
+      /* ---------- Usuário ---------- */
       .user {
         display: none;
-        padding: 30px 20px;
+        padding: 36px 20px;
         gap: 22px;
         flex-direction: column;
-        width: 100%;
-        max-width: 860px;
+        max-width: 880px;
         margin: 0 auto;
         animation: entrar 0.5s ease;
       }
@@ -388,24 +460,33 @@
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
-        gap: 6px 20px;
-        background: linear-gradient(
-          135deg,
-          var(--roxo-claro),
-          var(--roxo-escuro)
-        );
+        gap: 4px 22px;
+        background: var(--grad);
         color: #fff;
-        padding: 26px;
-        border-radius: 24px;
-        box-shadow: 0 18px 36px rgba(139, 31, 224, 0.3);
+        padding: 28px;
+        border-radius: 28px;
+        box-shadow: 0 20px 40px rgba(139, 31, 224, 0.32);
+        position: relative;
+        overflow: hidden;
+      }
+      .user-profile::after {
+        content: "";
+        position: absolute;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        right: -70px;
+        top: -90px;
+        background: rgba(255, 255, 255, 0.1);
+        pointer-events: none;
       }
       #avatar-user {
         grid-row: span 3;
-        width: 72px;
-        height: 72px;
+        width: 76px;
+        height: 76px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.22);
-        border: 3px solid rgba(255, 255, 255, 0.6);
+        border: 3px solid rgba(255, 255, 255, 0.65);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -414,20 +495,24 @@
       }
       .user-profile h3 {
         font-size: 1.5rem;
+        font-weight: 800;
       }
       .user-profile p {
         color: rgba(255, 255, 255, 0.88);
-        font-size: 0.95rem;
+        font-size: 0.93rem;
       }
       .user-profile button {
         grid-column: 3;
         grid-row: 1 / span 3;
+        position: relative;
+        z-index: 1;
         background: rgba(255, 255, 255, 0.18);
         color: #fff;
         border: 1.5px solid rgba(255, 255, 255, 0.6);
         padding: 10px 22px;
         cursor: pointer;
         border-radius: 999px;
+        font: inherit;
         font-weight: 700;
         transition: all 0.25s;
       }
@@ -436,48 +521,53 @@
         color: var(--roxo);
       }
       .user-content {
-        background: #fff;
-        padding: 30px;
-        border-radius: 24px;
+        background: var(--branco);
+        padding: 32px;
+        border-radius: 28px;
         border: 1px solid var(--borda);
         box-shadow: var(--sombra);
-        cursor: default;
       }
       .user-content h3 {
-        color: var(--texto);
         font-size: 1.4rem;
+        font-weight: 800;
         margin-bottom: 6px;
         text-align: center;
       }
       .user-content p {
         color: var(--texto-suave);
         text-align: center;
+        line-height: 1.55;
+        max-width: 560px;
+        margin: 0 auto;
       }
       .user-content button#btn-arquivos {
         display: flex;
         align-items: center;
-        margin: 22px auto 0;
-        padding: 13px 26px;
+        margin: 24px auto 0;
+        padding: 14px 28px;
         border-radius: 999px;
         border: 2px dashed var(--roxo-claro);
         background: #faf2fe;
         color: var(--roxo);
+        font: inherit;
         font-weight: 700;
-        font-size: 0.98rem;
+        font-size: 0.97rem;
         cursor: pointer;
         transition: all 0.3s;
       }
       .user-content button#btn-arquivos:hover {
-        background: linear-gradient(135deg, var(--roxo-claro), var(--roxo));
+        background: var(--grad);
         border-style: solid;
+        border-color: transparent;
         color: #fff;
-        box-shadow: 0 10px 22px rgba(177, 10, 243, 0.3);
+        box-shadow: 0 12px 24px rgba(177, 10, 243, 0.32);
+        transform: translateY(-2px);
       }
 
       /* Lista de arquivos */
       #lista-arquivos {
         list-style: none;
-        margin-top: 24px;
+        margin-top: 26px;
         display: flex;
         flex-direction: column;
         gap: 12px;
@@ -486,9 +576,10 @@
         color: var(--texto-suave);
         text-align: center;
         font-size: 0.95rem;
-        padding: 26px;
+        padding: 30px;
         border: 1.5px dashed var(--borda);
-        border-radius: 16px;
+        border-radius: 18px;
+        background: #fcfaff;
       }
       .arquivo {
         display: flex;
@@ -496,24 +587,24 @@
         gap: 14px;
         padding: 14px 16px;
         border: 1px solid var(--borda);
-        border-radius: 16px;
+        border-radius: 18px;
         background: #fff;
         flex-wrap: wrap;
         transition: all 0.25s;
       }
       .arquivo:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 22px rgba(110, 30, 190, 0.12);
+        box-shadow: 0 12px 24px rgba(110, 30, 190, 0.12);
         border-color: #d4b8f2;
       }
       .arquivo > i {
         font-size: 1.7rem;
-        width: 48px;
-        height: 48px;
+        width: 50px;
+        height: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 14px;
+        border-radius: 15px;
         flex-shrink: 0;
       }
       .arquivo .bi-file-earmark-pdf-fill {
@@ -530,7 +621,6 @@
         overflow: hidden;
       }
       .arquivo-nome {
-        color: var(--texto);
         font-weight: 600;
         font-size: 0.97rem;
         word-break: break-word;
@@ -548,9 +638,9 @@
         background: #faf2fe;
         border: none;
         color: var(--roxo);
-        border-radius: 10px;
-        width: 38px;
-        height: 38px;
+        border-radius: 12px;
+        width: 40px;
+        height: 40px;
         cursor: pointer;
         font-size: 1rem;
         transition: all 0.25s;
@@ -558,6 +648,12 @@
       .arquivo-acoes button:hover {
         background: var(--roxo-claro);
         color: #fff;
+        transform: translateY(-2px);
+      }
+      .arquivo-acoes button.compartilhar.ativo {
+        background: var(--grad);
+        color: #fff;
+        box-shadow: 0 6px 14px rgba(177, 10, 243, 0.35);
       }
       .arquivo-acoes button.remover {
         background: #fdecec;
@@ -568,57 +664,436 @@
         color: #fff;
       }
 
-      /* Rodapé */
+      /* ---------- Pesquisa ---------- */
+      .pesquisa {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        padding: 40px 18px;
+        animation: entrar 0.5s ease;
+      }
+      .pesquisa-titulo {
+        text-align: center;
+        max-width: 700px;
+      }
+      .pesquisa-titulo h2 {
+        font-size: 1.9rem;
+        font-weight: 800;
+        letter-spacing: -0.8px;
+      }
+      .pesquisa-titulo h2 span {
+        background: var(--grad);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .pesquisa-titulo p {
+        color: var(--texto-suave);
+        margin-top: 6px;
+        font-size: 0.97rem;
+      }
+      .btn-pesquisa {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        max-width: 760px;
+        background: var(--branco);
+        padding: 8px 10px 8px 20px;
+        border: 1.5px solid var(--borda);
+        border-radius: 999px;
+        box-shadow: var(--sombra);
+        transition: all 0.25s;
+      }
+      .btn-pesquisa:focus-within {
+        border-color: var(--roxo-claro);
+        box-shadow: 0 0 0 4px rgba(177, 10, 243, 0.12), var(--sombra);
+      }
+      .btn-pesquisa i {
+        color: var(--roxo);
+        font-size: 1.1rem;
+      }
+      .btn-pesquisa input {
+        border: none;
+        outline: none;
+        padding: 10px 0;
+        width: 100%;
+        background: transparent;
+        font: inherit;
+        font-size: 1rem;
+        color: var(--texto);
+      }
+      .mensagem-pesquisa {
+        color: var(--texto-suave);
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-align: center;
+        padding: 26px 20px;
+      }
+      .mensagem-pesquisa:empty {
+        display: none;
+      }
+      #resultados {
+        display: grid;
+        gap: 14px;
+        width: 100%;
+        max-width: 760px;
+      }
+      .card-arquivo {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        padding: 18px 20px;
+        border-radius: 20px;
+        background: var(--branco);
+        border: 1px solid var(--borda);
+        box-shadow: var(--sombra);
+        text-align: left;
+        animation: entrar 0.4s ease;
+        transition: all 0.25s;
+        flex-wrap: wrap;
+      }
+      .card-arquivo:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--sombra-forte);
+        border-color: #d4b8f2;
+      }
+      .card-arquivo .card-icone {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        flex-shrink: 0;
+      }
+      .card-icone.pdf {
+        color: #d32f2f;
+        background: #fdecec;
+      }
+      .card-icone.word {
+        color: #1976d2;
+        background: #e8f2fd;
+      }
+      .card-texto {
+        flex: 1;
+        min-width: 180px;
+      }
+      .card-arquivo h3 {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+      .card-arquivo p {
+        font-size: 0.9rem;
+        color: var(--texto-suave);
+        margin-top: 3px;
+        word-break: break-word;
+      }
+      .card-arquivo button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 20px;
+        border-radius: 999px;
+        border: none;
+        background: var(--grad);
+        color: #fff;
+        font: inherit;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        cursor: pointer;
+        box-shadow: 0 8px 18px rgba(177, 10, 243, 0.3);
+        transition: all 0.25s;
+      }
+      .card-arquivo button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(177, 10, 243, 0.42);
+      }
+
+      /* ---------- Trabalhor (grupo) ---------- */
+      .grupos-layout {
+        display: none;
+        flex: 1;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 32px 24px;
+        gap: 20px;
+        align-items: stretch;
+        animation: entrar 0.5s ease;
+      }
+      .grupo {
+        width: 100%;
+        max-width: 270px;
+        background: var(--branco);
+        border: 1px solid var(--borda);
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(35, 26, 51, 0.06);
+        padding: 18px 14px;
+        flex-shrink: 0;
+      }
+      .grupo-titulo {
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: var(--texto);
+        padding: 2px 8px 14px;
+      }
+      .button {
+        margin-bottom: 14px;
+      }
+      .button button {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 8px;
+        padding: 11px 14px;
+        border-radius: 12px;
+        border: 1px solid transparent;
+        background: var(--grad);
+        color: #fff;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        align-items: center;
+        box-shadow: 0 6px 14px rgba(91, 18, 168, 0.18);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .button button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 9px 18px rgba(91, 18, 168, 0.24);
+      }
+      #professores {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      #professores a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--texto);
+        text-decoration: none;
+        padding: 9px 10px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      }
+      #professores a h3 {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      #professores a::before {
+        content: attr(data-inicial);
+        width: 36px;
+        height: 36px;
+        border-radius: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--roxo);
+        background: var(--lilas);
+        flex-shrink: 0;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+      #professores a:hover {
+        background: #faf7fe;
+        border-color: var(--borda);
+      }
+      #professores a.ativo {
+        background: var(--lilas);
+        border-color: #e4d0f7;
+        color: var(--roxo-escuro);
+      }
+      #professores a.ativo::before {
+        background: var(--roxo);
+        color: #fff;
+      }
+      .arquivosgrupo {
+        flex: 1;
+        min-width: 0;
+        background: var(--branco);
+        border: 1px solid var(--borda);
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(35, 26, 51, 0.06);
+        padding: 24px;
+      }
+      .arquivosgrupo-cabecalho {
+        margin-bottom: 20px;
+      }
+      .arquivosgrupo-cabecalho h2 {
+        color: var(--texto);
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+      .arquivosgrupo-cabecalho p {
+        margin-top: 5px;
+        color: var(--texto-suave);
+        font-size: 0.88rem;
+      }
+      .psq-arq {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 4px 14px;
+        border: 1px solid var(--borda);
+        border-radius: 12px;
+        background: #fbf9fd;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease,
+          background 0.2s ease;
+      }
+      .psq-arq:focus-within {
+        border-color: var(--roxo-claro);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(177, 10, 243, 0.1);
+      }
+      .psq-arq i {
+        color: var(--texto-suave);
+      }
+      .psq-arq input {
+        width: 100%;
+        padding: 11px 0;
+        border: none;
+        outline: none;
+        background: transparent;
+        font: inherit;
+        font-size: 0.9rem;
+        color: var(--texto);
+      }
+      .vazio-grupo {
+        text-align: center;
+        color: var(--texto-suave);
+        margin-top: 20px;
+        padding: 54px 20px;
+        border: 1px dashed var(--borda);
+        border-radius: 16px;
+        background: #fcfaff;
+      }
+      .vazio-grupo i {
+        width: 54px;
+        height: 54px;
+        margin: 0 auto 14px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.55rem;
+        color: var(--roxo-claro);
+        background: var(--lilas);
+      }
+      .vazio-grupo strong {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--texto);
+        font-size: 0.95rem;
+      }
+      .vazio-grupo p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+
+      /* ---------- Rodapé ---------- */
       footer {
         text-align: center;
-        padding: 18px;
-        background: linear-gradient(
-          90deg,
-          var(--roxo-escuro),
-          var(--roxo-claro)
-        );
+        padding: 20px;
+        background: linear-gradient(90deg, var(--roxo-escuro), var(--roxo-claro));
         color: rgba(255, 255, 255, 0.92);
         font-size: 0.9rem;
         width: 100%;
+        margin-top: 30px;
       }
 
-      /* Aviso */
+      /* ---------- Aviso ---------- */
       #aviso {
         background: #231a33;
         color: #fff;
         position: fixed;
-        top: 90px;
+        top: 96px;
         left: 50%;
         transform: translateX(-50%);
         z-index: 1000;
         padding: 14px 22px;
-        max-width: 420px;
+        max-width: 440px;
         width: calc(100% - 40px);
         border-left: 5px solid var(--roxo-claro);
-        border-radius: 12px;
-        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.25);
+        border-radius: 14px;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
         text-align: center;
-        font-size: 0.95rem;
+        font-size: 0.94rem;
+        font-weight: 500;
         display: none;
         animation: entrar 0.3s ease;
       }
 
+      @media (max-width: 760px) {
+        .grupos-layout {
+          flex-direction: column;
+          padding: 24px 16px;
+          gap: 14px;
+        }
+        .grupo {
+          max-width: none;
+          padding: 16px;
+        }
+        .arquivosgrupo {
+          width: 100%;
+          padding: 20px 16px;
+        }
+      }
       @media (max-width: 650px) {
         .inicio {
           flex-direction: column;
-          padding: 12px 16px;
+          padding: 12px 14px;
+        }
+        footer {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          padding: 12px 8px calc(12px + env(safe-area-inset-bottom));
+        }
+        footer .menu {
+          width: fit-content;
+          max-width: 100%;
+          margin-inline: auto;
         }
         .menu ul {
+          flex-wrap: wrap;
           justify-content: center;
           gap: 4px;
         }
+        .menu ul li {
+          flex: 0 1 auto;
+        }
         .menu ul li a {
-          padding: 8px 12px;
-          font-size: 0.88rem;
+          flex-direction: column;
+          justify-content: center;
+          gap: 3px;
+          padding: 6px 8px;
+          color: #fff;
+          font-size: 0.65rem;
+          text-align: center;
+        }
+        .menu ul li a:hover {
+          background: rgba(255, 255, 255, 0.16);
+          color: #fff;
+        }
+        .menu ul li a.ativo {
+          background: rgba(255, 255, 255, 0.22);
+          box-shadow: none;
+        }
+        .home-content {
+          padding-top: 44px;
         }
         .user-profile {
           grid-template-columns: auto 1fr;
-          text-align: left;
         }
         .user-profile button {
           grid-column: 1 / -1;
@@ -626,10 +1101,13 @@
           margin-top: 10px;
         }
         .cartao {
-          padding: 28px 20px;
+          padding: 32px 20px;
+        }
+        .user-content {
+          padding: 24px 16px;
         }
         #aviso {
-          top: 130px;
+          top: 140px;
         }
       }
     </style>
@@ -640,8 +1118,13 @@
       <nav class="menu">
         <ul>
           <li>
-            <a href="#" data-page="home"
+            <a href="#" id="home" data-page="home"
               ><i class="bi bi-house-door-fill"></i><span>Home</span></a
+            >
+          </li>
+          <li>
+            <a href="#" data-page="pesquisa"
+              ><i class="bi bi-search"></i><span>Pesquisar</span></a
             >
           </li>
           <li>
@@ -659,6 +1142,12 @@
               ><i class="bi bi-person"></i><span>Perfil</span></a
             >
           </li>
+          <li id="item-trabalhor" hidden>
+            <a href="#" id="trabalhor" data-page="trabalhor">
+              <i class="bi bi-people"></i>
+              <span>Trabalhor</span>
+            </a>
+          </li>
         </ul>
       </nav>
     </header>
@@ -667,7 +1156,10 @@
       <!-- Home -->
       <section class="home">
         <div class="home-content">
-          <h1>Bem-vindo ao Professor.com</h1>
+          <span class="selo"
+            ><i class="bi bi-stars"></i> Plataforma para professores</span
+          >
+          <h1>Bem-vindo ao <span>Professor.com</span></h1>
           <p>
             Aqui você pode encontrar recursos educacionais, tutoriais e muito
             mais para aprimorar seu conhecimento.
@@ -679,6 +1171,11 @@
             <a href="#" class="btn-hero secundario" data-go="login"
               ><i class="bi bi-box-arrow-in-right"></i>Já tenho conta</a
             >
+          </div>
+          <div class="estatisticas">
+            <div><strong>PDF</strong><span>e Word aceitos</span></div>
+            <div><strong>100%</strong><span>gratuito</span></div>
+            <div><strong>Fácil</strong><span>de compartilhar</span></div>
           </div>
         </div>
         <div class="home-content2">
@@ -707,6 +1204,29 @@
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- Pesquisar -->
+      <section class="pesquisa">
+        <div class="pesquisa-titulo">
+          <h2>Encontre <span>materiais</span> de outros professores</h2>
+          <p>Pesquise por nome do professor, arquivo ou tipo (PDF, Word).</p>
+        </div>
+        <div class="btn-pesquisa">
+          <i class="bi bi-search"></i>
+          <input
+            id="pesquisa-input"
+            type="search"
+            placeholder="Pesquisar..."
+            aria-label="Pesquisar professor ou arquivo"
+          />
+        </div>
+        <p
+          id="mensagem-pesquisa"
+          class="mensagem-pesquisa"
+          aria-live="polite"
+        ></p>
+        <div id="resultados"></div>
       </section>
 
       <!-- Cadastro -->
@@ -787,7 +1307,10 @@
         </div>
         <div class="user-content">
           <h3>Conteúdo do Usuário</h3>
-          <p>Aqui você pode acessar seus Arquivos e materiais Escolares.</p>
+          <p>
+            Aqui você pode acessar seus Arquivos e Trasferir arquivos em PDF e
+            WORD. Use o botão de compartilhar para publicá-los na pesquisa.
+          </p>
           <button id="btn-arquivos" type="button">
             <i class="bi bi-upload" style="margin-right: 8px"></i>Transferir
             Arquivos
@@ -802,8 +1325,42 @@
           <ul id="lista-arquivos"></ul>
         </div>
       </section>
-    </main>
 
+      <!-- Trabalhor -->
+      <div class="grupos-layout">
+        <aside class="grupo">
+          <div class="grupo-titulo">Professores</div>
+          <div class="button">
+            <button id="adcionar">
+              <i class="bi bi-plus-lg"></i>
+              Adicionar
+            </button>
+          </div>
+          <ul id="professores">
+            <li>
+              <a href="#" id="prof1" data-inicial="M" class="ativo">
+                <h3>Mateus</h3>
+              </a>
+            </li>
+          </ul>
+        </aside>
+        <div class="arquivosgrupo">
+          <div class="arquivosgrupo-cabecalho">
+            <h2>Arquivos compartilhados</h2>
+            <p>Materiais publicados pelo professor selecionado.</p>
+          </div>
+          <div class="psq-arq">
+            <i class="bi bi-search"></i>
+            <input type="search" placeholder="Procurar Arquivos.." />
+          </div>
+          <div class="vazio-grupo">
+            <i class="bi bi-folder2-open"></i>
+            <strong>Nenhum arquivo compartilhado ainda</strong>
+            <p>Quando o professor publicar materiais, eles aparecerão aqui.</p>
+          </div>
+        </div>
+      </div>
+    </main>
     <div id="aviso"></div>
 
     <footer>
@@ -816,17 +1373,38 @@
     <script>
       const aviso = document.getElementById("aviso");
       const menuLinks = document.querySelectorAll(".menu ul li a");
+      const menu = document.querySelector(".menu");
+      const rodape = document.querySelector("footer");
+      const menuPlaceholder = document.createComment("");
+      menu.before(menuPlaceholder);
+      const menuMobile = window.matchMedia("(max-width: 650px)");
+      function posicionarMenu() {
+        if (menuMobile.matches) {
+          rodape.prepend(menu);
+        } else {
+          menuPlaceholder.after(menu);
+        }
+      }
+      menuMobile.addEventListener("change", posicionarMenu);
+      posicionarMenu();
+
       const homeSection = document.querySelector(".home");
+      const pesquisaSection = document.querySelector(".pesquisa");
       const cadastroSection = document.querySelector(".cadastro");
       const loginSection = document.querySelector(".login");
       const userSection = document.querySelector(".user");
+      const grupoSection = document.querySelector(".grupos-layout");
       const cadastroLink = document.getElementById("cadastro");
       const loginLink = document.getElementById("login");
       const perfilLink = document.getElementById("perfil");
+      const trabalharLinkItem = document.getElementById("item-trabalhor");
       const logoutButton = document.getElementById("logout");
       const btnArquivos = document.getElementById("btn-arquivos");
       const inputArquivos = document.getElementById("input-arquivos");
       const listaArquivos = document.getElementById("lista-arquivos");
+      const pesquisaInput = document.getElementById("pesquisa-input");
+      const mensagemPesquisa = document.getElementById("mensagem-pesquisa");
+      const resultados = document.getElementById("resultados");
 
       document.getElementById("ano").textContent = new Date().getFullYear();
 
@@ -863,11 +1441,34 @@
         });
       }
 
+      async function dbListarCompartilhados() {
+        const db = await abrirDB();
+        return new Promise((resolve, reject) => {
+          const req = db
+            .transaction("arquivos")
+            .objectStore("arquivos")
+            .getAll();
+          req.onsuccess = () =>
+            resolve(req.result.filter((r) => r.compartilhado === true));
+          req.onerror = () => reject(req.error);
+        });
+      }
+
       async function dbAdicionar(registro) {
         const db = await abrirDB();
         return new Promise((resolve, reject) => {
           const tx = db.transaction("arquivos", "readwrite");
           tx.objectStore("arquivos").add(registro);
+          tx.oncomplete = () => resolve();
+          tx.onerror = () => reject(tx.error);
+        });
+      }
+
+      async function dbAtualizar(registro) {
+        const db = await abrirDB();
+        return new Promise((resolve, reject) => {
+          const tx = db.transaction("arquivos", "readwrite");
+          tx.objectStore("arquivos").put(registro);
           tx.oncomplete = () => resolve();
           tx.onerror = () => reject(tx.error);
         });
@@ -882,6 +1483,80 @@
           tx.onerror = () => reject(tx.error);
         });
       }
+
+      /* ---------- Pesquisa: cards só dos arquivos compartilhados ---------- */
+      async function renderizarResultados() {
+        if (!resultados) return;
+        const termo = pesquisaInput.value.trim().toLowerCase();
+
+        let lista = [];
+        try {
+          lista = await dbListarCompartilhados();
+        } catch (err) {}
+
+        resultados.innerHTML = "";
+
+        if (!lista.length) {
+          mensagemPesquisa.textContent = "Nenhum arquivo compartilhado ainda.";
+          return;
+        }
+
+        const filtrados = lista.filter((reg) => {
+          if (!termo) return true;
+          const texto = [
+            reg.professor || "Professor",
+            reg.nome,
+            reg.tipo === "pdf" ? "pdf" : "word doc docx",
+          ]
+            .join(" ")
+            .toLowerCase();
+          return texto.includes(termo);
+        });
+
+        mensagemPesquisa.textContent = filtrados.length
+          ? ""
+          : "Nenhum resultado encontrado.";
+
+        filtrados.forEach((reg) => {
+          const card = document.createElement("div");
+          card.className = "card-arquivo";
+
+          const icone = document.createElement("div");
+          icone.className = "card-icone " + (reg.tipo === "pdf" ? "pdf" : "word");
+          icone.innerHTML =
+            '<i class="bi ' +
+            (reg.tipo === "pdf"
+              ? "bi-file-earmark-pdf-fill"
+              : "bi-file-earmark-word-fill") +
+            '"></i>';
+
+          const texto = document.createElement("div");
+          texto.className = "card-texto";
+
+          const h3 = document.createElement("h3");
+          h3.textContent =
+            "Feito pelo Professor : " + (reg.professor || "Professor");
+
+          const p = document.createElement("p");
+          p.textContent =
+            "Arquivo compartilhado : " +
+            (reg.tipo === "pdf" ? "PDF" : "WORD") +
+            " — " +
+            reg.nome;
+
+          texto.append(h3, p);
+
+          const botao = document.createElement("button");
+          botao.type = "button";
+          botao.innerHTML = '<i class="bi bi-download"></i>DOWNLOAD';
+          botao.addEventListener("click", () => baixarArquivo(reg));
+
+          card.append(icone, texto, botao);
+          resultados.appendChild(card);
+        });
+      }
+
+      pesquisaInput.addEventListener("input", renderizarResultados);
 
       /* ---------- Filtro PDF / Word ---------- */
       const TIPOS_WORD = [
@@ -964,7 +1639,8 @@
           tam.textContent =
             (reg.tipo === "pdf" ? "PDF" : "Word") +
             " • " +
-            formatarTamanho(reg.tamanho);
+            formatarTamanho(reg.tamanho) +
+            (reg.compartilhado ? " • Compartilhado" : "");
           info.append(nome, tam);
 
           const acoes = document.createElement("div");
@@ -993,12 +1669,41 @@
           remover.addEventListener("click", async () => {
             await dbRemover(reg.id);
             renderizarArquivos();
+            renderizarResultados();
             mostrarAviso("Arquivo removido.");
           });
 
-          acoes.append(baixar, remover);
+          const compartilhar = document.createElement("button");
+          compartilhar.type = "button";
+          compartilhar.className =
+            "compartilhar" + (reg.compartilhado ? " ativo" : "");
+          compartilhar.title = reg.compartilhado
+            ? "Parar de compartilhar"
+            : "Compartilhar";
+          compartilhar.innerHTML = '<i class="bi bi-person"></i>';
+
+          acoes.append(baixar, remover, compartilhar);
           li.append(icone, info, acoes);
           listaArquivos.appendChild(li);
+
+          compartilhar.addEventListener("click", async (e) => {
+            e.preventDefault();
+            reg.compartilhado = !reg.compartilhado;
+            reg.professor = localStorage.getItem("nome") || "Professor";
+            try {
+              await dbAtualizar(reg);
+            } catch (err) {
+              reg.compartilhado = !reg.compartilhado;
+              return mostrarAviso("Não foi possível atualizar o arquivo.");
+            }
+            await renderizarArquivos();
+            renderizarResultados();
+            mostrarAviso(
+              reg.compartilhado
+                ? "Arquivo compartilhado com sucesso!"
+                : "Arquivo removido da pesquisa.",
+            );
+          });
         });
       }
 
@@ -1033,10 +1738,12 @@
           try {
             await dbAdicionar({
               dono,
+              professor: localStorage.getItem("nome") || "Professor",
               nome: file.name,
               tipo: tipoDoArquivo(file),
               tamanho: file.size,
               blob: file,
+              compartilhado: false,
               data: Date.now(),
             });
             adicionados++;
@@ -1055,9 +1762,17 @@
       /* ---------- Navegação / sessão ---------- */
       function esconderTodasAsSections() {
         homeSection.style.display = "none";
+        pesquisaSection.style.display = "none";
         cadastroSection.style.display = "none";
         loginSection.style.display = "none";
         userSection.style.display = "none";
+        grupoSection.style.display = "none";
+      }
+
+      function marcarMenu(pagina) {
+        menuLinks.forEach((l) =>
+          l.classList.toggle("ativo", l.dataset.page === pagina),
+        );
       }
 
       function estaLogado() {
@@ -1072,6 +1787,7 @@
         perfilLink.style.display = logado ? "flex" : "none";
         cadastroLink.style.display = logado ? "none" : "flex";
         loginLink.style.display = logado ? "none" : "flex";
+        trabalharLinkItem.hidden = !logado;
       }
 
       function mostrarPerfil() {
@@ -1086,6 +1802,7 @@
           "Perfil: Professor";
         esconderTodasAsSections();
         userSection.style.display = "flex";
+        marcarMenu("perfil");
         renderizarArquivos();
       }
 
@@ -1100,14 +1817,30 @@
         esconderTodasAsSections();
         if (pagina === "home") {
           homeSection.style.display = "flex";
+        } else if (pagina === "pesquisa") {
+          pesquisaSection.style.display = "flex";
+          renderizarResultados();
         } else if (pagina === "cadastro") {
           cadastroSection.style.display = "flex";
         } else if (pagina === "login") {
           loginSection.style.display = "flex";
+        } else if (pagina === "trabalhor") {
+          if (!estaLogado()) {
+            loginSection.style.display = "flex";
+            pagina = "login";
+            marcarMenu(pagina);
+            return;
+          }
+          grupoSection.style.display = "flex";
         } else if (pagina === "perfil") {
-          if (estaLogado()) mostrarPerfil();
-          else loginSection.style.display = "flex";
+          if (estaLogado()) return mostrarPerfil();
+          loginSection.style.display = "flex";
+          pagina = "login";
+        } else {
+          homeSection.style.display = "flex";
+          pagina = "home";
         }
+        marcarMenu(pagina);
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
@@ -1193,13 +1926,38 @@
       logoutButton.addEventListener("click", () => {
         localStorage.removeItem("logado");
         atualizarMenu();
-        esconderTodasAsSections();
-        homeSection.style.display = "flex";
+        irPara("home");
         mostrarAviso("Você saiu da conta.");
       });
 
+      /* ---------- Trabalhor: lista de professores ---------- */
+      const listaProfessores = document.getElementById("professores");
+      listaProfessores.addEventListener("click", (e) => {
+        const a = e.target.closest("a");
+        if (!a) return;
+        e.preventDefault();
+        listaProfessores
+          .querySelectorAll("a")
+          .forEach((x) => x.classList.remove("ativo"));
+        a.classList.add("ativo");
+      });
+
+      document.getElementById("adcionar").addEventListener("click", () => {
+        const nome = (prompt("Nome do professor:") || "").trim();
+        if (!nome) return;
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = "#";
+        a.dataset.inicial = nome.charAt(0).toUpperCase();
+        const h3 = document.createElement("h3");
+        h3.textContent = nome;
+        a.appendChild(h3);
+        li.appendChild(a);
+        listaProfessores.appendChild(li);
+      });
+
       window.addEventListener("load", () => {
-        if (!carregarDadosDoPerfil()) homeSection.style.display = "flex";
+        if (!carregarDadosDoPerfil()) irPara("home");
       });
     </script>
   </body>
